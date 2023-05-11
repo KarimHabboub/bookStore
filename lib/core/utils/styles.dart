@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-abstract class Style{
+abstract class Styles{
 
   static const titleMedium = TextStyle(
     fontSize: 18,

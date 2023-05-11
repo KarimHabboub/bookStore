@@ -1,5 +1,5 @@
 import 'package:bookly/core/utils/assets.dart';
-import 'package:bookly/shared/style/icon_broken.dart';
+import 'package:bookly/core/utils/icon_broken.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {

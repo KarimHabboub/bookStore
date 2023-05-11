@@ -1,5 +1,5 @@
 import 'package:bookly/core/utils/assets.dart';
-import 'package:bookly/features/home/presentation/viewes/home.dart';
+import 'package:bookly/features/home/presentation/views/home.dart';
 import 'package:bookly/features/splash/presentation/views/widget/sliding_text.dart';
 import 'package:bookly/shared/components/constant.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +30,9 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   @override
   void dispose() {
-    super.dispose();
+    animationController.stop();
     animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -62,7 +63,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   void navigateToHomeView() {
     Future.delayed(const Duration(seconds: 3), () {
-      Get.to(
+      Get.off(
             () => const HomeView(),
         transition: Transition.fade,
         duration: kTransitionDuration,
