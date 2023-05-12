@@ -1,4 +1,4 @@
-import 'package:bookly/features/home/presentation/views/widget/home_view_widget/books_listView.dart';
+import 'package:bookly/features/home/presentation/views/widget/book_details_view_widget/book_details_view_body.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsView extends StatelessWidget {
@@ -7,7 +7,7 @@ class BookDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: BooksListView(),
+      body: BookDetailsViewBody(),
     );
   }
 }
