@@ -1,5 +1,6 @@
 import 'package:bookly/core/utils/app_router.dart';
 import 'package:bookly/core/utils/styles.dart';
+import 'package:bookly/features/home/presentation/views/widget/home_view_widget/rate_book.dart';
 import 'package:bookly/shared/components/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +13,7 @@ class BestSellerListViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         GoRouter.of(context).push(AppRouter.bookDetailsView);
       },
       child: Row(
@@ -43,7 +44,8 @@ class BestSellerListViewItem extends StatelessWidget {
                     "Harry Potter and the Goblet of Fire",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: Styles.textStyle20.copyWith(fontFamily: kGTSectraFine),
+                    style:
+                        Styles.textStyle20.copyWith(fontFamily: kGTSectraFine),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 3.0),
@@ -52,32 +54,7 @@ class BestSellerListViewItem extends StatelessWidget {
                       style: Styles.textStyle14.copyWith(color: Colors.grey),
                     ),
                   ),
-                  Row(
-                    children:  [
-                      const Text(
-                        '19.99 €',
-                        style: Styles.textStyle20,
-                      ),
-                      const Spacer(),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 6.0),
-                        child: Icon(
-                          Icons.star,
-                          size: 20,
-                          color: Color(0xffFFDD4F),
-                        ),
-                      ),
-                      const Text(
-                        '4.8',
-                        style: Styles.textStyle16,
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        "(2390)",
-                        style: Styles.textStyle14.copyWith(color: Colors.grey),
-                      ),
-                    ],
-                  ),
+                  const RateBook(),
                 ],
               ),
             ),

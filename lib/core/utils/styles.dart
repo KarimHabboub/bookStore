@@ -15,5 +15,5 @@ abstract class Styles {
       TextStyle(fontSize: 20, fontWeight: FontWeight.w400);
 
   static const textStyle30 = TextStyle(
-      fontFamily: kGTSectraFine, fontSize: 30, fontWeight: FontWeight.w900);
+      fontFamily: kGTSectraFine, fontSize: 30, fontWeight: FontWeight.w600);
 }
