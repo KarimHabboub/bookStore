@@ -1,4 +1,4 @@
-import 'package:bookly/shared/components/constant.dart';
+import 'package:bookly/core/utils/constant.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class Styles {
