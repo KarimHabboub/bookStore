@@ -42,9 +42,11 @@ class TheBookData extends StatelessWidget {
         const SizedBox(height: 37),
         const BookPriceBox(),
         const SizedBox(height: 49),
-        const Text(
+         Text(
           'You can also like',
-          style: Styles.textStyle14,
+          style: Styles.textStyle14.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ],
     );
