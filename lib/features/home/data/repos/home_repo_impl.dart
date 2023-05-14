@@ -2,47 +2,46 @@ import 'package:bookly/core/errors/failure.dart';
 import 'package:bookly/core/network/dio_helper.dart';
 import 'package:bookly/features/home/data/models/book_model.dart';
 import 'package:bookly/features/home/data/repos/home_repo.dart';
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 class HomeRepoIMp implements HomeRepo {
-  BookModel? bookModel;
-  List<Items> itemBook = [];
 
   @override
-  void fetchNewsBooks() {
+  Future<Either<Failure, List<Items>>> fetchNewestBooks()  async {
     // TODO: implement fetchNewsBooks
-    DioHelper.getData(
-      path: 'https://www.googleapis.com/books/v1/volumes?q=subject: programing&Sorting=newest ',
-    ).then((value) {
-      bookModel = BookModel.fromJson(value?.data);
-      bookModel?.items?.forEach((element) {
-        itemBook.add(element);
-      });
-    }).catchError((onError) {
-      if (onError is DioError) {
-        ServerFailure.fromDioError(onError);
+    try {
+      final response = await DioHelper.getData(
+        path: 'volumes?q=subject: programing&Sorting=newest ',
+      );
+      final bookModel = BookModel.fromJson(response?.data);
+      final itemBook = bookModel.items ?? [];
+      return right(itemBook);
+    } catch (error) {
+      if (error is DioError) {
+        return left(ServerFailure.fromDioError(error));
       } else {
-        ServerFailure(onError.toString());
+        return left(ServerFailure(error.toString()));
       }
-    });
+    }
   }
 
   @override
-  void fetchFeaturedBooks() {
+  Future<Either<Failure, List<Items>>> fetchFeaturedBooks() async {
     // TODO: implement fetchFeaturedBooks
-    DioHelper.getData(
-      path: 'volumes?q=subject: programing',
-    ).then((value) {
-      bookModel = BookModel.fromJson(value?.data);
-      bookModel?.items?.forEach((element) {
-        itemBook.add(element);
-      });
-    }).catchError((onError) {
-      if (onError is DioError) {
-        ServerFailure.fromDioError(onError);
+    try {
+      final response = await DioHelper.getData(
+        path: 'volumes?q=subject: programing',
+      );
+      final bookModel = BookModel.fromJson(response?.data);
+      final itemBook = bookModel.items ?? [];
+      return right(itemBook);
+    } catch (error) {
+      if (error is DioError) {
+        return left(ServerFailure.fromDioError(error));
       } else {
-        ServerFailure(onError.toString());
+        return left(ServerFailure(error.toString()));
       }
-    });
+    }
   }
 }
