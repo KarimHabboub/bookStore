@@ -1,5 +1,9 @@
-abstract class HomeRepo{
-  fetchBestSellerBooks();
-  fetchFeaturedBooks();
+
+
+abstract class HomeRepo {
+
+  void fetchNewsBooks();
+
+  void fetchFeaturedBooks();
 
 }

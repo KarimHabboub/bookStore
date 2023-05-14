@@ -11,9 +11,9 @@ class BooksListView extends StatelessWidget {
       child: ListView.builder(
         padding: EdgeInsets.zero,
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => const Padding(
-          padding: EdgeInsets.only(right: 15.0),
-          child: CustomBookImage(),
+        itemBuilder: (context, index) =>  const Padding(
+          padding:  EdgeInsets.only(right: 15.0),
+          child: CustomBookImage(aspectRatio: 2.6/4),
         ),
         itemCount: 10,
       ),

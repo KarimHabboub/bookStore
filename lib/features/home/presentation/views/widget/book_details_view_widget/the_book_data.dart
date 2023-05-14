@@ -22,7 +22,7 @@ class TheBookData extends StatelessWidget {
               const SizedBox(height: 36),
               SizedBox(
                   height: MediaQuery.of(context).size.height*0.3,
-                  child: const CustomBookImage()
+                  child:const CustomBookImage(aspectRatio: 2.9/4,)
               ),
               const SizedBox(height: 43),
               const Text(

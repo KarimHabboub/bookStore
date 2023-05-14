@@ -1,36 +1,68 @@
 class BookModel {
   String? kind;
+  int? totalItems;
+  List<Items>? items;
+
+  BookModel({kind, totalItems, items});
+
+  BookModel.fromJson(Map<String, dynamic> json) {
+    kind = json['kind'];
+    totalItems = json['totalItems'];
+    if (json['items'] != null) {
+      items = <Items>[];
+      json['items'].forEach((v) {
+        items!.add( Items.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data =  <String, dynamic>{};
+    data['kind'] = kind;
+    data['totalItems'] = totalItems;
+    if (items != null) {
+      data['items'] = items!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Items {
+  String? kind;
   String? id;
   String? etag;
   String? selfLink;
   VolumeInfo? volumeInfo;
   SaleInfo? saleInfo;
   AccessInfo? accessInfo;
-  SearchInfo? searchInfo;
 
-  BookModel(
-      {kind, id, etag, selfLink, volumeInfo, saleInfo, accessInfo, searchInfo});
+  Items(
+      {kind,
+        id,
+        etag,
+        selfLink,
+        volumeInfo,
+        saleInfo,
+        accessInfo});
 
-  BookModel.fromJson(Map<String, dynamic> json) {
+  Items.fromJson(Map<String, dynamic> json) {
     kind = json['kind'];
     id = json['id'];
     etag = json['etag'];
     selfLink = json['selfLink'];
     volumeInfo = json['volumeInfo'] != null
-        ? VolumeInfo.fromJson(json['volumeInfo'])
+        ?  VolumeInfo.fromJson(json['volumeInfo'])
         : null;
-    saleInfo =
-        json['saleInfo'] != null ? SaleInfo.fromJson(json['saleInfo']) : null;
+    saleInfo = json['saleInfo'] != null
+        ?  SaleInfo.fromJson(json['saleInfo'])
+        : null;
     accessInfo = json['accessInfo'] != null
-        ? AccessInfo.fromJson(json['accessInfo'])
-        : null;
-    searchInfo = json['searchInfo'] != null
-        ? SearchInfo.fromJson(json['searchInfo'])
+        ?  AccessInfo.fromJson(json['accessInfo'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['kind'] = kind;
     data['id'] = id;
     data['etag'] = etag;
@@ -44,15 +76,13 @@ class BookModel {
     if (accessInfo != null) {
       data['accessInfo'] = accessInfo!.toJson();
     }
-    if (searchInfo != null) {
-      data['searchInfo'] = searchInfo!.toJson();
-    }
     return data;
   }
 }
 
 class VolumeInfo {
   String? title;
+  String? subtitle;
   List<String>? authors;
   String? publisher;
   String? publishedDate;
@@ -74,27 +104,29 @@ class VolumeInfo {
 
   VolumeInfo(
       {title,
-      authors,
-      publisher,
-      publishedDate,
-      description,
-      industryIdentifiers,
-      readingModes,
-      pageCount,
-      printType,
-      categories,
-      maturityRating,
-      allowAnonLogging,
-      contentVersion,
-      panelizationSummary,
-      imageLinks,
-      language,
-      previewLink,
-      infoLink,
-      canonicalVolumeLink});
+        subtitle,
+        authors,
+        publisher,
+        publishedDate,
+        description,
+        industryIdentifiers,
+        readingModes,
+        pageCount,
+        printType,
+        categories,
+        maturityRating,
+        allowAnonLogging,
+        contentVersion,
+        panelizationSummary,
+        imageLinks,
+        language,
+        previewLink,
+        infoLink,
+        canonicalVolumeLink});
 
   VolumeInfo.fromJson(Map<String, dynamic> json) {
     title = json['title'];
+    subtitle = json['subtitle'];
     authors = json['authors'].cast<String>();
     publisher = json['publisher'];
     publishedDate = json['publishedDate'];
@@ -102,11 +134,11 @@ class VolumeInfo {
     if (json['industryIdentifiers'] != null) {
       industryIdentifiers = <IndustryIdentifiers>[];
       json['industryIdentifiers'].forEach((v) {
-        industryIdentifiers!.add(IndustryIdentifiers.fromJson(v));
+        industryIdentifiers!.add( IndustryIdentifiers.fromJson(v));
       });
     }
     readingModes = json['readingModes'] != null
-        ? ReadingModes.fromJson(json['readingModes'])
+        ?  ReadingModes.fromJson(json['readingModes'])
         : null;
     pageCount = json['pageCount'];
     printType = json['printType'];
@@ -115,10 +147,10 @@ class VolumeInfo {
     allowAnonLogging = json['allowAnonLogging'];
     contentVersion = json['contentVersion'];
     panelizationSummary = json['panelizationSummary'] != null
-        ? PanelizationSummary.fromJson(json['panelizationSummary'])
+        ?  PanelizationSummary.fromJson(json['panelizationSummary'])
         : null;
     imageLinks = json['imageLinks'] != null
-        ? ImageLinks.fromJson(json['imageLinks'])
+        ?  ImageLinks.fromJson(json['imageLinks'])
         : null;
     language = json['language'];
     previewLink = json['previewLink'];
@@ -127,8 +159,9 @@ class VolumeInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['title'] = title;
+    data['subtitle'] = subtitle;
     data['authors'] = authors;
     data['publisher'] = publisher;
     data['publishedDate'] = publishedDate;
@@ -172,7 +205,7 @@ class IndustryIdentifiers {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['type'] = type;
     data['identifier'] = identifier;
     return data;
@@ -191,7 +224,7 @@ class ReadingModes {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['text'] = text;
     data['image'] = image;
     return data;
@@ -210,7 +243,7 @@ class PanelizationSummary {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['containsEpubBubbles'] = containsEpubBubbles;
     data['containsImageBubbles'] = containsImageBubbles;
     return data;
@@ -229,7 +262,7 @@ class ImageLinks {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['smallThumbnail'] = smallThumbnail;
     data['thumbnail'] = thumbnail;
     return data;
@@ -240,20 +273,23 @@ class SaleInfo {
   String? country;
   String? saleability;
   bool? isEbook;
+  String? buyLink;
 
-  SaleInfo({country, saleability, isEbook});
+  SaleInfo({country, saleability, isEbook, buyLink});
 
   SaleInfo.fromJson(Map<String, dynamic> json) {
     country = json['country'];
     saleability = json['saleability'];
     isEbook = json['isEbook'];
+    buyLink = json['buyLink'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['country'] = country;
     data['saleability'] = saleability;
     data['isEbook'] = isEbook;
+    data['buyLink'] = buyLink;
     return data;
   }
 }
@@ -272,15 +308,15 @@ class AccessInfo {
 
   AccessInfo(
       {country,
-      viewability,
-      embeddable,
-      publicDomain,
-      textToSpeechPermission,
-      epub,
-      pdf,
-      webReaderLink,
-      accessViewStatus,
-      quoteSharingAllowed});
+        viewability,
+        embeddable,
+        publicDomain,
+        textToSpeechPermission,
+        epub,
+        pdf,
+        webReaderLink,
+        accessViewStatus,
+        quoteSharingAllowed});
 
   AccessInfo.fromJson(Map<String, dynamic> json) {
     country = json['country'];
@@ -288,15 +324,15 @@ class AccessInfo {
     embeddable = json['embeddable'];
     publicDomain = json['publicDomain'];
     textToSpeechPermission = json['textToSpeechPermission'];
-    epub = json['epub'] != null ? Epub.fromJson(json['epub']) : null;
-    pdf = json['pdf'] != null ? Pdf.fromJson(json['pdf']) : null;
+    epub = json['epub'] != null ?  Epub.fromJson(json['epub']) : null;
+    pdf = json['pdf'] != null ?  Pdf.fromJson(json['pdf']) : null;
     webReaderLink = json['webReaderLink'];
     accessViewStatus = json['accessViewStatus'];
     quoteSharingAllowed = json['quoteSharingAllowed'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['country'] = country;
     data['viewability'] = viewability;
     data['embeddable'] = embeddable;
@@ -317,16 +353,19 @@ class AccessInfo {
 
 class Epub {
   bool? isAvailable;
+  String? downloadLink;
 
-  Epub({isAvailable});
+  Epub({isAvailable, downloadLink});
 
   Epub.fromJson(Map<String, dynamic> json) {
     isAvailable = json['isAvailable'];
+    downloadLink = json['downloadLink'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['isAvailable'] = isAvailable;
+    data['downloadLink'] = downloadLink;
     return data;
   }
 }
@@ -343,25 +382,9 @@ class Pdf {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['isAvailable'] = isAvailable;
     data['acsTokenLink'] = acsTokenLink;
-    return data;
-  }
-}
-
-class SearchInfo {
-  String? textSnippet;
-
-  SearchInfo({textSnippet});
-
-  SearchInfo.fromJson(Map<String, dynamic> json) {
-    textSnippet = json['textSnippet'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['textSnippet'] = textSnippet;
     return data;
   }
 }

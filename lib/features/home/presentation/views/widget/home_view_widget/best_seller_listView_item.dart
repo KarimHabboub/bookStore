@@ -54,7 +54,18 @@ class BookListViewItem extends StatelessWidget {
                       style: Styles.textStyle14.copyWith(color: Colors.grey),
                     ),
                   ),
-                  const RateBook(),
+
+                   Row(
+                     children: [Text(
+                       '19.99 \$',
+                       style: Styles.textStyle20.copyWith(
+                         fontWeight: FontWeight.bold,
+                       ),
+                     ),
+                       const Spacer(),
+                       RateBook(),
+                     ],
+                   ),
                 ],
               ),
             ),
