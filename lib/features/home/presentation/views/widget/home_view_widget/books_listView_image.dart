@@ -19,9 +19,13 @@ class BooksListViewImage extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               padding: EdgeInsets.zero,
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) =>  Padding(
+              itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(right: 15.0),
-                child: CustomBookImage(aspectRatio: 2.6 / 4, imageUrl: state.books[index].volumeInfo!.imageLinks!.thumbnail!,),
+                child: CustomBookImage(
+                  aspectRatio: 2.6 / 4,
+                  imageUrl:
+                      state.books[index].volumeInfo!.imageLinks!.thumbnail!,
+                ),
               ),
               itemCount: state.books.length,
             ),

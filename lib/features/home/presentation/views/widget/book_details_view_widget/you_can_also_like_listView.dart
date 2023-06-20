@@ -1,10 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../data/models/book_model.dart';
 
 class YouCanAlsoLikeListView extends StatelessWidget {
   const YouCanAlsoLikeListView({
-    Key? key,
+    Key? key, required this.items, required this.theSameItems,
   }) : super(key: key);
 
+  final Items items;
+  final List<Items> theSameItems;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -18,16 +23,10 @@ class YouCanAlsoLikeListView extends StatelessWidget {
           ),
           child: AspectRatio(
             aspectRatio: 3/4,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                    'https://img.freepik.com/free-photo/vertical-shot-hot-coffee-with-waffles_181624-43126.jpg?w=360&t=st=1683822742~exp=1683823342~hmac=2c408b7a9baa8ef544e1574091639898d3ec1c46d61b9841a76585a88a8cd176',
-                  ),
-                ),
-              ),
+            child: CachedNetworkImage(
+              imageUrl: theSameItems[index].volumeInfo?.imageLinks?.smallThumbnail ?? '',
+              fit: BoxFit.cover,
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
         ),

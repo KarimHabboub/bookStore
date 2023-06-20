@@ -1,23 +1,34 @@
-import 'package:bookly/core/utils/app_router.dart';
+
 import 'package:bookly/core/utils/styles.dart';
 import 'package:bookly/core/widget/rate_book.dart';
 import 'package:bookly/core/utils/constant.dart';
 import 'package:bookly/features/home/data/models/book_model.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
+import '../../book_details_view.dart';
 
 class BookListViewItem extends StatelessWidget {
   const BookListViewItem({
     Key? key,
     required this.newestItem,
+    this.theSameItems,
   }) : super(key: key);
+
   final Items newestItem;
+  final List<Items>? theSameItems;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push(AppRouter.bookDetailsView , extra: newestItem ,);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BookDetailsView(
+                bookData: newestItem,
+                theSameItems: theSameItems!,
+              ),
+            ));
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,8 +42,7 @@ class BookListViewItem extends StatelessWidget {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                      newestItem.volumeInfo?.imageLinks?.smallThumbnail ?? ""
-                  ),
+                      newestItem.volumeInfo?.imageLinks?.smallThumbnail ?? ""),
                 ),
               ),
             ),

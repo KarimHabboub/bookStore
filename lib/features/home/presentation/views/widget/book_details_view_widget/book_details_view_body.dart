@@ -5,9 +5,11 @@ import 'package:bookly/features/home/presentation/views/widget/book_details_view
 import 'package:flutter/material.dart';
 
 class BookDetailsViewBody extends StatelessWidget {
-  const BookDetailsViewBody({Key? key, required this.bookData}) : super(key: key);
+  const BookDetailsViewBody({Key? key, required this.bookData,  this.theSameItems, }) : super(key: key);
 
   final Items bookData;
+  final List<Items>? theSameItems;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,7 +22,7 @@ class BookDetailsViewBody extends StatelessWidget {
         children: [
           const CustomBookDetailsAppBar(),
           TheBookData(bookData: bookData,),
-          const YouCanAlsoLikeListView(),
+          YouCanAlsoLikeListView(items: bookData, theSameItems: theSameItems!,),
         ],
       ),
     );
