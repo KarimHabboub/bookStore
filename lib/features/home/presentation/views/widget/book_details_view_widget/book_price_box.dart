@@ -1,11 +1,17 @@
 import 'package:bookly/core/utils/styles.dart';
 import 'package:bookly/core/widget/custom_button.dart';
+import 'package:bookly/features/home/data/models/book_model.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BookPriceBox extends StatelessWidget {
   const BookPriceBox({
     Key? key,
+    required this.bookData,
+
   }) : super(key: key);
+
+  final Items bookData;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +33,12 @@ class BookPriceBox extends StatelessWidget {
 
           ),
           CustomButton(
+            onPressed: () async{
+              Uri url = Uri.parse(bookData.volumeInfo!.previewLink!);
+              if (!await launchUrl(url)) {
+                throw Exception('Could not launch $url');
+              }
+            },
             text: 'Free preview',
             textStyle: Styles.textStyle16.copyWith(
                 color: Colors.white

@@ -5,8 +5,8 @@ import 'package:bookly/features/home/presentation/views/widget/home_view_widget/
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BooksListView extends StatelessWidget {
-  const BooksListView({Key? key}) : super(key: key);
+class BooksListViewImage extends StatelessWidget {
+  const BooksListViewImage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +16,14 @@ class BooksListView extends StatelessWidget {
           return SizedBox(
             height: MediaQuery.of(context).size.height * 0.28,
             child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
               padding: EdgeInsets.zero,
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => const Padding(
-                padding: EdgeInsets.only(right: 15.0),
-                child: CustomBookImage(aspectRatio: 2.6 / 4),
+              itemBuilder: (context, index) =>  Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: CustomBookImage(aspectRatio: 2.6 / 4, imageUrl: state.books[index].volumeInfo!.imageLinks!.thumbnail!,),
               ),
-              itemCount: 10,
+              itemCount: state.books.length,
             ),
           );
         } else if (state is FeaturedBooksFailure) {

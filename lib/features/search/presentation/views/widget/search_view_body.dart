@@ -2,7 +2,10 @@ import 'package:bookly/core/utils/assets.dart';
 import 'package:bookly/core/utils/icon_broken.dart';
 import 'package:bookly/core/utils/styles.dart';
 import 'package:bookly/features/home/presentation/views/widget/home_view_widget/best_seller_listView_item.dart';
+import 'package:bookly/features/search/presentation/cubit/cubit.dart';
+import 'package:bookly/features/search/presentation/cubit/states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchViewBody extends StatelessWidget {
@@ -35,16 +38,25 @@ class SearchListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.zero,
-        itemBuilder: (context, index) => const Padding(
-          padding: EdgeInsets.only(bottom: 20),
-          child: BookListViewItem(),
-        ),
-        itemCount: 10,
-      ),
+    return BlocConsumer<SearchCubit, SearchStates>(
+      listener: (buildContext, state) {},
+      builder: (buildContext, state) {
+        if(state is SuccessState){
+        return Expanded(
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.zero,
+            itemBuilder: (context, index) =>
+             Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: BookListViewItem(newestItem: state.booksResultsSearch[index]),
+            ),
+            itemCount: state.booksResultsSearch.length > 10 ?10 : state.booksResultsSearch.length,
+          ),
+        );}else{
+          return const Text('');
+        }
+      },
     );
   }
 }
@@ -56,25 +68,37 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          suffixIcon: const Padding(
-            padding: EdgeInsets.only(right: 22),
-            child: Icon(
-              IconBroken.Search,
-              color: Colors.white,
-            ),
-          ),
-          hintText: 'Search for the book you want'),
+    return BlocConsumer<SearchCubit, SearchStates>(
+      listener: (buildContext, state) {},
+      builder: (buildContext, state) {
+        return TextFormField(
+          keyboardType: TextInputType.text,
+          onChanged: (value) {
+            SearchCubit.get(context).resultSearch(text: value);
+          },
+          onFieldSubmitted: (value) {
+            SearchCubit.get(context).resultSearch(text: value);
+          },
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              suffixIcon: const Padding(
+                padding: EdgeInsets.only(right: 22),
+                child: Icon(
+                  IconBroken.Search,
+                  color: Colors.white,
+                ),
+              ),
+              hintText: 'Search for the book you want'),
+        );
+      },
+
     );
   }
 }

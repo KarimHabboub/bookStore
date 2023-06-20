@@ -3,9 +3,10 @@ import 'package:bookly/features/home/presentation/cubits/newest_books_cubit/stat
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewestBooksCubit extends Cubit<NewestBooksState> {
-  NewestBooksCubit(this.homeRepo) : super(NewestBooksInitial());
+  NewestBooksCubit() : super(NewestBooksInitial());
 
-  final HomeRepoImpl homeRepo;
+  final HomeRepoImpl homeRepo = HomeRepoImpl();
+
   Future<void> fetchNewestBooks() async {
     emit(NewestBooksLoading());
     var result = await homeRepo.fetchNewestBooks();

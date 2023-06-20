@@ -2,19 +2,22 @@ import 'package:bookly/core/utils/app_router.dart';
 import 'package:bookly/core/utils/styles.dart';
 import 'package:bookly/core/widget/rate_book.dart';
 import 'package:bookly/core/utils/constant.dart';
+import 'package:bookly/features/home/data/models/book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class BookListViewItem extends StatelessWidget {
   const BookListViewItem({
     Key? key,
+    required this.newestItem,
   }) : super(key: key);
+  final Items newestItem;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push(AppRouter.bookDetailsView);
+        GoRouter.of(context).push(AppRouter.bookDetailsView , extra: newestItem ,);
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,10 +28,10 @@ class BookListViewItem extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
+                image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                    'https://img.freepik.com/free-photo/vertical-shot-hot-coffee-with-waffles_181624-43126.jpg?w=360&t=st=1683822742~exp=1683823342~hmac=2c408b7a9baa8ef544e1574091639898d3ec1c46d61b9841a76585a88a8cd176',
+                      newestItem.volumeInfo?.imageLinks?.smallThumbnail ?? ""
                   ),
                 ),
               ),
@@ -41,7 +44,7 @@ class BookListViewItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Harry Potter and the Goblet of Fire",
+                    newestItem.volumeInfo!.title ?? "",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style:
@@ -50,22 +53,34 @@ class BookListViewItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 3.0),
                     child: Text(
-                      "J.K. Rowling",
+                      newestItem.volumeInfo?.authors?.first != null
+                          ? newestItem.volumeInfo!.authors!.first
+                          : '',
+                      //newestItem.volumeInfo!.authors!.first,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: Styles.textStyle14.copyWith(color: Colors.grey),
                     ),
                   ),
-
-                   Row(
-                     children: [Text(
-                       '19.99 \$',
-                       style: Styles.textStyle20.copyWith(
-                         fontWeight: FontWeight.bold,
-                       ),
-                     ),
-                       const Spacer(),
-                       const RateBook(),
-                     ],
-                   ),
+                  Row(
+                    children: [
+                      Text(
+                        'Free',
+                        style: Styles.textStyle20.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Spacer(),
+                      RateBook(
+                        countRate: newestItem.volumeInfo?.ratingsCount != null
+                            ? newestItem.volumeInfo!.ratingsCount!
+                            : 0,
+                        rate: newestItem.volumeInfo?.averageRating != null
+                            ? newestItem.volumeInfo!.averageRating!
+                            : 0.0,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

@@ -12,10 +12,17 @@ class HomeRepoImpl implements HomeRepo {
     // TODO: implement fetchNewsBooks
     try {
       final response = await DioHelper.getData(
-        path: 'volumes?q=subject: programing&Sorting=newest ',
+        path: 'volumes?q=entertainment',
       );
       final bookModel = BookModel.fromJson(response?.data);
       final itemBook = bookModel.items ?? [];
+      // for(int x=0; x<=itemBook.length; x++){
+      //      print(itemBook[x].volumeInfo?.title);
+      //      print(itemBook[x].volumeInfo?.authors?.first);
+      //      print(itemBook[x].volumeInfo?.pageCount);
+      //      print('---------------------------------');
+      //
+      // }
       return right(itemBook);
     } catch (error) {
       if (error is DioError) {
@@ -31,7 +38,7 @@ class HomeRepoImpl implements HomeRepo {
     // TODO: implement fetchFeaturedBooks
     try {
       final response = await DioHelper.getData(
-        path: 'volumes?q=subject: programing',
+        path: 'volumes?Filtering=free-ebooks&q=subject:Programming',
       );
       final bookModel = BookModel.fromJson(response?.data);
       final itemBook = bookModel.items ?? [];
